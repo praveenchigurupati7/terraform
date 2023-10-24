@@ -3,12 +3,12 @@ variable "project_id" {
   default = "elevated-glow-400716"
 }
 
+variable "gcp_region" {
+  description = "region"
+  default = "us-central1"
+}
+
 # variable "region" {
 #   description = "region"
-#   default = "us-central1"
+#   default = "us-east-2"
 # }
-
-variable "region" {
-  description = "region"
-  default = "us-east-2"
-}
