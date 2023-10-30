@@ -2,15 +2,15 @@ module "gke_network" {
   source = "./gke/network"
 
   project_id = var.project_id
-  region = var.gcp_region
+  region     = var.gcp_region
 }
 
 module "gke_cluster" {
   source = "./gke/cluster"
 
   project_id = var.project_id
-  region = var.gcp_region
-  network = module.gke_network.network
+  region     = var.gcp_region
+  network    = module.gke_network.network
   subnetwork = module.gke_network.subnetwork
 }
 
