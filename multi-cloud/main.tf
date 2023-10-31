@@ -21,3 +21,24 @@ module "gcp_compute" {
 #   gcp_storage_bucket_name = var.gcp_storage_bucket_name
 #   gcp_storage_bucket_location = var.gcp_storage_bucket_location
 # }
+
+# data "template_file" "ansible_inventory" {
+#   template = file("${path.module}/ansible_inventory.tpl")
+
+#   vars = {
+#     instance_name = module.gcp_compute.
+#     instance_ip   = google_compute_instance.example.network_interface.0.access_config.0.assigned_nat_ip
+#   }
+# }
+
+# resource "null_resource" "generate_ansible_inventory" {
+#   triggers = {
+#     always_run = "${timestamp()}"
+#   }
+
+#   provisioner "local-exec" {
+#     command = <<EOT
+#       echo '${data.template_file.ansible_inventory.rendered}' > ansible_inventory.ini
+#     EOT
+#   }
+# }

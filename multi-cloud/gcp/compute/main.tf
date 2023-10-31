@@ -26,6 +26,8 @@ resource "google_compute_instance" "default" {
 
   tags = ["http-server", "https-server"]
 
+  metadata_startup_script = file("startup-script.sh")
+
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     email  = var.service_account_email
