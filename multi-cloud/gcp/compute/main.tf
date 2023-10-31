@@ -26,7 +26,7 @@ resource "google_compute_instance" "default" {
 
   tags = ["http-server", "https-server"]
 
-  metadata_startup_script = file("startup-script.sh")
+  metadata_startup_script = file("${path.module}/startup-script.sh")
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
