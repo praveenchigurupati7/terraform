@@ -31,14 +31,35 @@ module "gcp_compute" {
 #   }
 # }
 
-# resource "null_resource" "generate_ansible_inventory" {
-#   triggers = {
-#     always_run = "${timestamp()}"
-#   }
+resource "null_resource" "generate_ansible_inventory" {
+
+  provisioner "local-exec" {
+    command = <<EOT
+      if [[ -f ./ansible_inventory.ini ]]; then
+        rm -rf ./ansible_inventory.ini
+        touch ./ansible_inventory.ini
+      fi
+      for instance in "${join("\n", module.gcp_compute.gcp_instance_info)}"; do
+        echo "$instance\n" >> ansible_inventory.ini
+      done
+    EOT
+  }
+}
+
+# resource "null_resource" "run_ansible_playbook" {
 
 #   provisioner "local-exec" {
 #     command = <<EOT
-#       echo '${data.template_file.ansible_inventory.rendered}' > ansible_inventory.ini
+#       ansible-playbook -i ansible_inventory.ini ansible/playbook.yml
 #     EOT
 #   }
 # }
+
+
+
+
+
+
+
+
+

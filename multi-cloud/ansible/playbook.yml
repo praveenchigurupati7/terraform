@@ -1,0 +1,14 @@
+---
+
+- name: Install necessary packages
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install a list of packages with a list variable
+      ansible.builtin.yum:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+        - httpd
+        - httpd-tools
